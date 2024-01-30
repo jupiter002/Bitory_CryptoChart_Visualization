@@ -10,6 +10,6 @@ public class BitoryApplication {
 		SpringApplication.run(BitoryApplication.class, args);
 	}
 
-	//hello world
+	//main
 
 }
