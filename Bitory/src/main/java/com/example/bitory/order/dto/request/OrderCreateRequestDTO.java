@@ -5,12 +5,12 @@ import com.example.bitory.user.entity.User;
 import lombok.*;
 
 @Getter @Setter
-@ToString @EqualsAndHashCode
+@ToString
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class OrderCreateRequestDTO {
 
-    private int orderId;
+    private String orderId;
 
     public Order toEntity() {
         return Order.builder()

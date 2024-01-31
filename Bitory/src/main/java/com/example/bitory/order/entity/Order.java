@@ -4,6 +4,7 @@ import com.example.bitory.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +15,9 @@ import java.time.LocalDateTime;
 public class Order {
 
     @Id
-    private int orderId; //주문 PK
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid")
+    private String orderId; //주문 PK
 
     @Enumerated(EnumType.STRING)
     private AssetType assetType; //자산 타입
