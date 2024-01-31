@@ -31,7 +31,6 @@ public class User {
     private LocalDateTime joinDate;
 
     @Enumerated(EnumType.STRING)
-
     @Builder.Default
     private Role role = Role.Common;
 
