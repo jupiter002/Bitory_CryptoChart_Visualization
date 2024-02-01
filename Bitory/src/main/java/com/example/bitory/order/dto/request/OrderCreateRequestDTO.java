@@ -5,7 +5,7 @@ import com.example.bitory.user.entity.User;
 import lombok.*;
 
 @Getter @Setter
-@ToString
+@ToString @EqualsAndHashCode
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class OrderCreateRequestDTO {

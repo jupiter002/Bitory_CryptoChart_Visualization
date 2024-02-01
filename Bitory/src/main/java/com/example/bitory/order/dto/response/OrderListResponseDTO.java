@@ -4,7 +4,7 @@ import com.example.bitory.order.entity.Order;
 import lombok.*;
 
 @Getter @Setter
-@ToString
+@ToString @EqualsAndHashCode
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class OrderListResponseDTO {

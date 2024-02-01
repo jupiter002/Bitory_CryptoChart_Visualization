@@ -21,36 +21,38 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
 
-//    public OrderListResponseDTO payment(
-//            OrderCreateRequestDTO requestDTO,
-//            User user //로그인된 유저 정보로 변경 필요?
-//
-//    ) {
-//
-//        //로그인된 유저 정보에서 아이디를 찾아 Entity 타입으로 받기
-//        User foundUser = getUser(user.getId());
-//
-//        //OrderRequestDTO에 찾은 유저 정보를 넘겨주고 Entity 로 변환
-//        Order order = requestDTO.toEntity(foundUser);
-//
-//        //주문 레파지토리에 주문 정보 저장
-//        orderRepository.save(order);
-//
-//        return retrive(user.getId());
-//    }
-//
-//    public OrderListResponseDTO retrive(String userId) {
-//
-//        User user = getUser(userId);
-//
-//        List<Order> entityList = orderRepository.findAllByUser(user);
-//
-//        List<OrderListResponseDTO> dtoList = entityList.stream()
-//                .map(OrderListResponseDTO::new)
-//                .toList();
-//
-//        return OrderListResponseDTO;
-//    }
+
+    public OrderListResponseDTO payment(
+            OrderCreateRequestDTO requestDTO,
+            User user //로그인된 유저 정보로 변경 필요?
+
+    ) {
+
+        //유저 정보에서 아이디를 찾아 Entity 타입으로 받기
+        User foundUser = getUser(user.getId());
+
+        //requestDTO에 찾은 유저 정보를 넘겨 Entity 로 변환
+        Order order = requestDTO.toEntity(foundUser);
+
+        //주문 레파지토리에 주문 정보 저장
+        orderRepository.save(order);
+
+        return retrive(String.valueOf(foundUser));
+    }
+
+    public OrderListResponseDTO retrive(String userId) {
+
+        //로그인한 유저의 정보 조회
+        User user = getUser(userId);
+
+        List<Order> entityList = orderRepository.findAllByUser(user);
+
+        List<OrderListResponseDTO> dtoList = entityList.stream()
+                .map(OrderListResponseDTO::new)
+                .toList();
+
+        return (OrderListResponseDTO) dtoList;
+    }
 
     private User getUser(String userId) {
         return userRepository.findById(userId).orElseThrow();
