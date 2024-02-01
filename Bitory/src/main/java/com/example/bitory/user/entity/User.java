@@ -1,8 +1,10 @@
 package com.example.bitory.user.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Entity
+@NoArgsConstructor @AllArgsConstructor
 public class User {
 
     @Id
