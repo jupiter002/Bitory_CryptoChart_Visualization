@@ -26,7 +26,7 @@ public class UserService {
     return new UserSignUpResponseDTO(saved);
     }
 
-
+    //testcode
     /* 24.02.01
      * Author: CYJ(최용준)
      * function: authenticate(인증)
