@@ -17,7 +17,7 @@ public class Order {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String orderId; //주문 PK
 
     @Enumerated(EnumType.STRING)

@@ -1,5 +1,9 @@
 package com.example.bitory.order.api;
 
+import com.example.bitory.auth.UserInfo;
+import com.example.bitory.order.dto.request.OrderCreateRequestDTO;
+import com.example.bitory.order.dto.response.OrderListResponseDTO;
+import com.example.bitory.order.service.OrderService;
 import com.example.bitory.order.dto.request.OrderCreateRequestDTO;
 import com.example.bitory.order.dto.response.OrderListResponseDTO;
 import com.example.bitory.order.service.OrderService;
@@ -17,16 +21,16 @@ public class OrderController {
     private final OrderService orderService;
 
 
-    public ResponseEntity<?> retrieveOrderList(User user) {
-        OrderListResponseDTO responseDTO = orderService.retrive(user.getId());
+    public ResponseEntity<?> retrieveOrderList(UserInfo userInfo) {
+        OrderListResponseDTO responseDTO = orderService.retrive(userInfo.getUserId());
 
         return ResponseEntity.ok().body(responseDTO);
     }
 
     @PostMapping("create")
-    public ResponseEntity<?> createOrder(@RequestBody OrderCreateRequestDTO requestDTO, User user) {
+    public ResponseEntity<?> createOrder(@RequestBody OrderCreateRequestDTO requestDTO, UserInfo userInfo) {
 
-        OrderListResponseDTO responseDTO = orderService.payment(requestDTO, user);
+        OrderListResponseDTO responseDTO = orderService.payment(requestDTO, userInfo);
 
         return ResponseEntity.ok().body(responseDTO);
 
