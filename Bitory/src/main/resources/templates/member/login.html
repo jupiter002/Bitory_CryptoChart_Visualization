@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultra.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}">
+<head>
+</head>
+<body>
+<th:block layout:fragment="content">
+<meta charset="utf-8">
+<div class="main-banner" id="top">
+	<div id="main" class="container">
+        <div class="row offset-3 col-6">
+            <div class="card card-body bg-light col-2 text-center">
+                <a href="#">SIGN IN</a>
+            </div>
+            <div class="card card-body bg-light col-2 text-center">
+                <a href="/member/join">CREATE ACCOUNT</a>
+            </div>
+        </div>
+
+        <div class="card card-body bg-light offset-3 col-6">
+            <form class="form offset-1 col-10" id="lgnfrm" name="lgnfrm">
+                <h4>MY ACCOUNT</h4>
+                <div class="mb-3">
+                    <label for="userid" class="form-label">Account ID</label>
+                    <a href="/member/findId" id="findid">Forgot id?</a><label for="findid" class="form-label"></label>
+                    <input type="text" class="form-control" id="userid"  name="userid">
+                </div>
+
+                <div class="mb-3">
+                    <label for="findpw">Account Password</label>
+                    <a href="/member/findPw" id="findpw">Forgot Password?</a><label for="findpw" class="form-label"></label>
+                    <input type="password" class="form-control" id="passwd" name="passwd">
+                </div>
+
+                <div class="d-grid gap-2 b-3"> <!-- button -->
+                    <button type="button" class="btn btn-dark" id="loginbtn">SIGN IN</button> <!-- login button-->
+                    <a class="btn btn-light border-dark" href="/member/join" role="button">JOIN US</a>   <!-- join button -->
+                    <button type="button" class="btn btn-success">네이버 로그인</button>
+                    <button type="button" class="btn btn-warning">카카오로 시작하기</button>
+                </div>
+            </form>
+        </div>
+	</div>
+</div>
+    <script src="/assets/js/join.js" charset="utf-8"></script>
+</th:block>
+</body>
+</html>
