@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BitoryApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BitoryApplication.class, args);
+		BitoryApplication.run(BitoryApplication.class, args);
 	}
 
 	//main
