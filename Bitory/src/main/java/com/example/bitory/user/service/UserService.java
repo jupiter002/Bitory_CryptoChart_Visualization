@@ -43,6 +43,10 @@ public class UserService {
         String rawPassword = dto.getPassword(); //사용자가 입력한 비번
         String encodedPassword = user.getPassword(); //DB에 저장된 비번
 
+        if(!rawPassword.equals(encodedPassword)) {
+            throw new RuntimeException("비밀번호가 일치하지 않음");
+        }
+
 //        if(!encoder.matches(rawPassword, encodedPassword)) {
 //            throw new RuntimeException("비밀번호가 틀렸습니다.");
 //        }
@@ -54,7 +58,7 @@ public class UserService {
 //        String token = tokenProvider.createToken(user);
 
 //        return new LoginResponseDTO(user, token);
-        return null;
+        return new LoginResponseDTO(user);
     }
 
 }
