@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserInfo {
+public class TokenUserInfo {
     private String userId;
     private String email;
     private Role role;

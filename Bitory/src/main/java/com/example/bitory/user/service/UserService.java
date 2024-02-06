@@ -8,6 +8,7 @@ import com.example.bitory.user.entity.User;
 import com.example.bitory.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -53,7 +54,7 @@ public class UserService {
 
         log.info("{}님 로그인 성공!", user.getUserName());
 
-        /*로그인 성공 후에 클라이언트에게 뭘 리턴할 것인가?
+       /*로그인 성공 후에 클라이언트에게 뭘 리턴할 것인가?
           -> JWT를 클라이언트에게 발급 해 줘야 함 */
 //        String token = tokenProvider.createToken(user);
 
