@@ -1,6 +1,6 @@
 package com.example.bitory.order.service;
 
-import com.example.bitory.auth.UserInfo;
+import com.example.bitory.auth.TokenUserInfo;
 import com.example.bitory.order.dto.request.OrderCreateRequestDTO;
 import com.example.bitory.order.dto.response.OrderListResponseDTO;
 import com.example.bitory.order.entity.Order;
@@ -22,7 +22,7 @@ public class OrderService {
 
     public OrderListResponseDTO payment(
             OrderCreateRequestDTO requestDTO,
-            UserInfo userInfo //로그인된 유저 정보로 변경 필요?
+            TokenUserInfo userInfo //로그인된 유저 정보로 변경 필요?
 
     ) {
 
