@@ -7,16 +7,21 @@ table {
   table-layout: fixed;
   white-space: nowrap;
   overflow-x: auto;
+
 }
 
 th {
+ 	width: 100px;
+	text-align: center;
+	padding: 8px;
 	font-size: larger;
-	color: darkslateblue;
+	color: #7a6ad8;
 }
-th, td {
+td {
   width: 100px;
   text-align: center;
   padding: 8px;
+  color: white;
 }
 .up {
   color: red;
@@ -25,15 +30,17 @@ th, td {
   color: blue;
 }
 .no-change {
-  color: black;
+  color: rgb(255, 255, 255);
 }
 .container-table {
-	background-color: white;
+	background-color: rgb(0, 0, 0);
 }
 
 .marketTableName {
 	 text-align: center;
 	 margin: 2%;
+	 color: #7a6ad8;
+	 margin-bottom: -2%;
 }
 
 
