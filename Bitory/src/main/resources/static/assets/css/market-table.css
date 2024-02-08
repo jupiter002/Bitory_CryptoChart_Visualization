@@ -1,0 +1,78 @@
+body {
+  font-family: Arial, sans-serif;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  white-space: nowrap;
+  overflow-x: auto;
+
+}
+
+th {
+ 	width: 100px;
+	text-align: center;
+	padding: 8px;
+	font-size: larger;
+	color: #7a6ad8;
+}
+td {
+  width: 100px;
+  text-align: center;
+  padding: 8px;
+  color: white;
+}
+.up {
+  color: red;
+}
+.down {
+  color: blue;
+}
+.no-change {
+  color: rgb(255, 255, 255);
+}
+.container-table {
+	background-color: rgb(0, 0, 0);
+}
+
+.marketTableName {
+	 text-align: center;
+	 margin: 2%;
+	 color: #7a6ad8;
+	 margin-bottom: -2%;
+}
+
+
+.coin-code-style {
+    color: rgb(192, 192, 192);
+    font-size: 80%;
+ }
+
+/* 화면 너비가 1000px미만으로 가면 주식테이블의 시가,고가, 저가 테이블이 숨겨지도록 설정*/
+@media screen and (max-width: 1000px) {
+  .opening, .high, .low {
+    display: none;
+  }
+  table {
+        font-size: 0.8em; /* 폰트 크기를 줄입니다. 원하는 값으로 조절하세요. */
+    }
+}
+
+/* 화면의 너비가 410px미만으로 가면 주식테이블의 폰트 사이즈 줄어듦*/
+@media screen and (max-width: 410px) {
+    table {
+        font-size: 0.65em; /* 폰트 크기를 줄입니다. 원하는 값으로 조절하세요. */
+    }
+    
+    /* 종목명 셀의 너비를 넓힙니다. */
+    .coin-name {
+        width: 30%;
+    }
+
+    /* 현재가와 대비 셀의 너비를 좁힙니다. */
+    .current-price, .comparison {
+        width: 10%;
+    }
+}
+

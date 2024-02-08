@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="header">
-<!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="/index" class="logo">
-                        <h1>Scholar</h1>
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Serach Start ***** -->
-                    <div class="search-input">
-                      <form id="search" action="#">
-                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                        <i class="fa fa-search"></i>
-                      </form>
-                    </div>
-                    <!-- ***** Serach Start ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                      <li class="scroll-to-section"><a href="/index#top" class="active">Home</a></li>
-                      <li class="scroll-to-section"><a href="/index#marketTable">거래소</a></li>
-                      <li class="scroll-to-section"><a href="/index#accordionExample">Services</a></li>
-                      <li class="scroll-to-section"><a href="/index#courses">Courses</a></li>
-                      <li class="scroll-to-section"><a href="/index#team">Team</a></li>
-                      <li class="scroll-to-section"><a href="/index#events">Events</a></li>
-                      <li class="scroll-to-section"><a href="/index#contact">Register Now!</a></li>
-                      <li class="scroll-to-section"><a href="/member/login">Login</a></li>
-                  </ul>   
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="/index" class="logo">
+                            <h1><img src="/assets/images/Logo3.png" style="width:15%">Bitory</h1>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Serach Start ***** -->
+                        <div class="search-input">
+                            <form id="search" action="#">
+                                <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
+                                <i class="fa fa-search"></i>
+                            </form>
+                        </div>
+                        <!-- ***** Serach Start ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="/index#top" class="active">TOP</a></li>
+                            <li class="scroll-to-section"><a href="/index#marketTable">거래소</a></li>
+                            <li class="scroll-to-section"><a href="/index#Predict">Predict</a></li>
+<!--                            <li class="scroll-to-section"><a href="/index#courses">Courses</a></li>-->
+<!--                            <li class="scroll-to-section"><a href="/index#team">Team</a></li>-->
+<!--                            <li class="scroll-to-section"><a href="/index#events">Events</a></li>-->
+<!--                            <li class="scroll-to-section"><a href="/index#contact">Register Now!</a></li>-->
+                            <li class="scroll-to-section"><a href="/member/login">Login</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
-  </header>
-  <!-- ***** Header Area End ***** -->
+    </header>
+    <!-- ***** Header Area End ***** -->
 </th:block>
 </html>

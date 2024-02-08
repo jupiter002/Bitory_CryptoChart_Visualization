@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultra.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/project.css"/>
+</head>
+<th:block layout:fragment="content">
+    <meta charset="utf-8">
+<div class="main-banner" id="top">
+    <div id="main" class="container">
+        <div class="card card-body bg-light offset-3 col-6">
+            <form class="form offset-1 col-10">
+                <div class="card card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">총 적립금</li>
+                        <li class="list-group-item">사용가능 적립금</li>
+                        <li class="list-group-item">사용된 적립금</li>
+                        <li class="list-group-item">미가용 적립금</li>
+                        <li class="list-group-item">환불예정 적립금</li>
+                    </ul>
+                </div>
+            </form>
+            <form class="form offset-1 col-10 mt-3">
+                <div class="card card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>적립내역</strong></li>
+                        <li class="list-group-item"><strong>미가용 적립내역</strong></li>
+                        <li class="list-group-item"><strong>미가용쿠폰/회원등급 적립내역</strong></li>
+                    </ul>
+                </div>
+            </form>
+        </div> <!-- 마일리지 현황-->
+
+
+    </div>
+</div>
+
+</th:block>
+
+</html>
