@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Bitory.iml" filepath="$PROJECT_DIR$/.idea/Bitory.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.Bitory.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.Bitory.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.Bitory.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.Bitory.test.iml" />
     </modules>
   </component>
 </project>
