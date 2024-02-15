@@ -16,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,15 +24,15 @@ import java.util.List;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class JwtAuthFilter {
+public class JwtAuthFilter implements JwtAuthFilterInterface {
 
     private final TokenProvider tokenProvider;
 
     // 필터가 해야할 작업을 기술
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    public void doFilterInternal(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 FilterChain filterChain)
             throws ServletException, IOException {
 
         try {
@@ -48,7 +47,7 @@ public class JwtAuthFilter {
 
                 // 인가 정보 리스트
                 List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
-                authorityList.add(new SimpleGrantedAuthority("ROLE_" + userInfo.getRole().toString()));
+//                authorityList.add(new SimpleGrantedAuthority("ROLE_" + userInfo.getRole().toString()));
 
                 // 인증 완료 처리
                 // - 스프링 시큐리티에게 인증정보를 전달해서
