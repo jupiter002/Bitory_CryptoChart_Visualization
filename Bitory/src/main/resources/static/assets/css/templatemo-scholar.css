@@ -130,8 +130,8 @@ body {
 }
 
 .section {
-  padding-top: 30px;
-  margin-top: 120px;
+/*  padding-top: 30px;
+  margin-top: 120px;*/
 }
 
 .section-heading {
@@ -372,13 +372,14 @@ Header Style
   border-radius: 0px 0px 25px 25px;
   flex-basis: 100%;
   margin-right: 0px;
-  justify-content: right;
+  justify-content: left;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   position: relative;
   z-index: 999;
+  width: 100%;
 }
 
 .header-area .main-nav .nav li:last-child {
@@ -667,7 +668,7 @@ Banner Style
 */
 
 .main-banner {
-  background-image: url(../images/banner-bg.jpg);
+  background-image: url(../images/banner-bg.png);
   background-position: right bottom;
   background-repeat: no-repeat;
   background-size: cover;
@@ -694,7 +695,7 @@ Banner Style
   background-position: center center;
   background-size: cover;
   border-radius: 25px;
-  padding: 100px 100px;
+  padding: 0px 0px;
   margin-left: 130px;
 }
 
@@ -798,10 +799,12 @@ Banner Style
 
 
 /* 
+/*
 ---------------------------------------------
 Services Style
 --------------------------------------------- 
-*/
+*//*
+
 
 .services .service-item:hover .icon img {
   margin-top: -10px;
@@ -852,11 +855,10 @@ Services Style
   margin-bottom: 25px;
 }
 
-/* 
----------------------------------------------
+*/
+/*---------------------------------------------
 About Style
 --------------------------------------------- 
-*/
 
 .about-us {
   position: relative;
@@ -949,11 +951,11 @@ h2.accordion-header button {
 }
 
 
-/* 
+*//*
 ---------------------------------------------
 Courses Style
 --------------------------------------------- 
-*/
+*//*
 
 .courses {
   margin-top: 160px;
@@ -1078,11 +1080,11 @@ Courses Style
 }
 
 
-/* 
+*//*
 ---------------------------------------------
 Facts Style
 --------------------------------------------- 
-*/
+*//*
 
 .fun-facts {
   position: relative;
@@ -1140,11 +1142,11 @@ Facts Style
 }
 
 
-/* 
+*//*
 ---------------------------------------------
 Team Style
 --------------------------------------------- 
-*/
+*//*
 
 .team {
   margin-top: 100px;
@@ -1212,11 +1214,11 @@ Team Style
 }
 
 
-/* 
+*//*
 ---------------------------------------------
 Testimonials Style
 --------------------------------------------- 
-*/
+*//*
 
 .testimonials {
   position: relative;
@@ -1319,11 +1321,11 @@ Testimonials Style
 }
 
 
-/* 
+*//*
 ---------------------------------------------
 Events Style
 --------------------------------------------- 
-*/
+*//*
 
 .events .section-heading {
   margin-bottom: 100px;
@@ -1410,11 +1412,11 @@ Events Style
 }
 
 
-/* 
+*//*
 ---------------------------------------------
 Contact Style
 --------------------------------------------- 
-*/
+*//*
 
 .contact-us {
   margin-top: 80px;
@@ -1632,10 +1634,10 @@ Contact Style
   font-weight: 400;
 }
 
-/* 
+*//*
 ---------------------------------------------
 Footer Style
---------------------------------------------- 
+---------------------------------------------
 */
 
 footer {
@@ -1678,11 +1680,11 @@ footer::before {
   z-index: 2;
 }
 
-/* 
+/*
 ---------------------------------------------
 Responsive Style
 --------------------------------------------- 
-*/
+*//*
 
 body {
   overflow-x: hidden;
@@ -1897,7 +1899,7 @@ body {
     margin-top: 30px;
   }
 }
-
+*/
 @media (max-width: 1200px) {
   .header-area .main-nav #search input {
     width: 200px;
@@ -1909,3 +1911,28 @@ body {
     width: 95%;
   }
 }
+
+
+  @media (max-width: 700px) {
+    .row {
+      flex-direction: column;
+    }
+  }
+  .indexrow {
+    width: 80%;
+    margin-left:8%;
+  }
+  .indexcnt {
+    background: white;
+    width: 100%;
+    border-radius: 5%;
+    box-shadow: 5px 5px 10px 5px rgba(77, 71, 71, 0.3);
+    text-align: center;
+    margin-bottom: 20px; /* 하단 여백 추가 */
+    padding:10%
+  }
+
+ #realtimeTradeVolumeTable,
+ #realtimeTradeVolumeTable tbody tr td {
+     color: black !important; /* 검은색 글자 */
+ }
