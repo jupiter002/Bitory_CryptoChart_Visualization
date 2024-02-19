@@ -44,24 +44,6 @@ public class LoginController {
         return "member/findPw";
     }
 
-    @GetMapping("/mileage")
-    public String mileage() {
 
-        return "member/mileage";
-    }
-
-    @GetMapping("/myboard")
-    public String myboard() {
-
-        return "member/myboard";
-    }
-
-    // 회원정보 수정
-    @GetMapping("/modify")
-    public String modify() {
-
-
-        return "member/modify";
-    }
 
 }

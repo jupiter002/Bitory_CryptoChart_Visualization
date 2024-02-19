@@ -14,11 +14,49 @@ public class IndexController {
         return "index";
     }
 	
-	@GetMapping("/trade")
+	@GetMapping("/predict")
+    public String predict(){
+
+        return "predict/predict";
+    }
+	@GetMapping("/market")
     public String market(){
+
+        return "market/market";
+    }
+
+    @GetMapping("/market/trade")
+    public String Trade(){
 
         return "market/trade";
     }
-	
-	
+
+    @GetMapping("/history")
+    public String history(){
+
+        return "record/history";
+    }
+
+
+    @GetMapping("/comparison")
+    public String comparison(){
+
+        return "record/comparison";
+    }
+
+
+    @GetMapping("/investGrade")
+    public String investGrade(){
+
+        return "record/investGrade";
+    }
+
+
+    @GetMapping("/virtualInvest")
+    public String virtualInvest(){
+
+        return "record/virtualInvest";
+    }
+
+
 }

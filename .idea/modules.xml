@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Bitory.iml" filepath="$PROJECT_DIR$/.idea/Bitory.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.Bitory.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.Bitory.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.Bitory.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.Bitory.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Bitory-AsiaE2024.iml" filepath="$PROJECT_DIR$/.idea/Bitory-AsiaE2024.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Bitory.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Bitory.main.iml" />
     </modules>
   </component>
 </project>

@@ -20,10 +20,10 @@ public class JoinController {
     }
 
 
-    @GetMapping("/mypage")
-    public String mypage(HttpSession sess) {
+    @GetMapping("/myPage")
+    public String myPage() {
 
-        return "member/mypage";
+        return "member/myPage";
     }
 
 

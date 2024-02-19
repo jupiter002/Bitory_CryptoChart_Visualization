@@ -4,10 +4,10 @@
 }
 
 .wrapper {
-    width: 65%;
+    width: 90%;
     height: 80%;
-    background: rgb(0, 0, 0);
-    box-shadow: -3px -3px 7px #ffffff73, 3px 3px 5px rgba(94, 104, 121, .288);
+    background: #FAFAFA;
+    box-shadow: 3px 3px 7px #ffffff73, 3px 3px 5px rgba(0, 0, 0, .288);
     margin: auto;
     border-radius: 10px;
     

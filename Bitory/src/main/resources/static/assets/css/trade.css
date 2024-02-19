@@ -1,0 +1,72 @@
+.positive {
+    color: red;
+}
+
+.negative {
+    color: blue;
+}
+
+/* 기본 상태에서는 화살표를 숨깁니다. */
+.sortable:after {
+    content: '';
+    display: none; /* 기본적으로 화살표를 숨깁니다. */
+    color: black;
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
+/* 오름차순 및 내림차순 상태에서 화살표를 표시합니다. */
+.asc:after, .desc:after {
+    display: inline; /* 화살표를 표시합니다. */
+}
+
+.asc:after {
+    content: '\25b2'; /* 오름차순 화살표 */
+}
+
+.desc:after {
+    content: '\25bc'; /* 내림차순 화살표 */
+}
+
+.initial:after {
+    content: ''; /* 정렬 상태 초기화 */
+}
+
+thead th {
+    cursor: pointer; /* 클릭 가능 표시 */
+}
+
+
+@keyframes flashBorderRed {
+    0% { border: 2px solid rgba(255, 0, 0, 1); }
+    100% { border: 2px solid transparent; }
+}
+
+@keyframes flashBorderBlue {
+    0% { border: 2px solid rgba(0, 0, 255, 1); }
+    100% { border: 2px solid transparent; }
+}
+
+.flash-border-red {
+    animation: flashBorderRed 1s;
+    animation-fill-mode: forwards; /* 애니메이션 완료 상태 유지 */
+}
+
+.flash-border-blue {
+    animation: flashBorderBlue 1s;
+    animation-fill-mode: forwards;
+}
+
+
+
+
+.container-table {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.table-container {
+    flex-grow: 1;
+    overflow-y: auto;
+}

@@ -2969,11 +2969,11 @@
 		navSpeed: false,
 		navElement: 'button type="button" role="presentation"',
 		navContainer: false,
-		navContainerClass: 'owl-nav',
-		navClass: [
-			'owl-prev',
-			'owl-next'
-		],
+//		navContainerClass: 'owl-nav',
+//		navClass: [
+//			'owl-prev',
+//			'owl-next'
+//		],
 		slideBy: 1,
 		dotClass: 'owl-dot',
 		dotsClass: 'owl-dots',
@@ -2993,8 +2993,8 @@
 			settings = this._core.settings;
 
 		// create DOM structure for relative navigation
-		this._controls.$relative = (settings.navContainer ? $(settings.navContainer)
-			: $('<div>').addClass(settings.navContainerClass).appendTo(this.$element)).addClass('disabled');
+//		this._controls.$relative = (settings.navContainer ? $(settings.navContainer)
+//			: $('<div>').addClass(settings.navContainerClass).appendTo(this.$element)).addClass('disabled');
 
 		this._controls.$previous = $('<' + settings.navElement + '>')
 			.addClass(settings.navClass[0])

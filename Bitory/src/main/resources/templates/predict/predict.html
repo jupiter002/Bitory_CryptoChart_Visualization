@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultra.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template}">
+<head></head>
+<body>
+<!-- 가상화폐 예측분석 그래프 css-->
+<th:block layout:fragment="content">
+    <meta charset="utf-8">
+    <div class="main-banner" id="top">
+        <div id="main" class="container">
+            <h2 class="marketTableName" id="Predict" style="color: rgb(221, 221, 221);">가상화폐 종류별 예측 그래프</h2>
+            <br><br>
+<!--            <h1 class="marketTableName">Predict Graph</h1>-->
+            <div id="bo">
+                <!-- ==================== Canvas 예측 그래프.========================= -->
+                <div class="wrapper">
+                    <canvas id="stockChart" width="800" height="400"></canvas>
+
+                    <select id="ticker">									<!--  -->
+                        <option name="BTC" value="BTC" selected="selected">Bitcoin</option>
+                        <option name="ETH" value="ETH">Ethereum</option>
+                        <option name="ADA" value="ADA">Cardano</option>
+                        <option name="XRP" value="XRP">XRP</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>
