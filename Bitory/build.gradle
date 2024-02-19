@@ -22,17 +22,19 @@ repositories {
 }
 
 dependencies {
+	// security 완성되기 전까진 주석처리하기
+	
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+//	testImplementation 'org.springframework.security:spring-security-test'
 
 	//	JWT
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
@@ -45,6 +47,14 @@ dependencies {
 
 	implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
 	implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+
+	// Thymeleaf Layout Dialect 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+	//웹소켓
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
 }
 
 
