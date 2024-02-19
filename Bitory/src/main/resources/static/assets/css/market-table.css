@@ -7,6 +7,7 @@ table {
   table-layout: fixed;
   white-space: nowrap;
   overflow-x: auto;
+  background-color: transparent;
 
 }
 
@@ -82,7 +83,3 @@ td {
     border-bottom: 2px solid white; /* 하얀색 선 */
   }
 
-  /* 테이블 바디 스타일 */
-  table tbody td {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* 투명도가 조절된 하얀색 선 */
-  }

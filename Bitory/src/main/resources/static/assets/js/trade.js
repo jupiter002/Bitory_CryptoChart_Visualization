@@ -13,42 +13,46 @@ document.addEventListener('DOMContentLoaded', function () {
         'KRW-SHIB': '시바이누', 'KRW-ATOM': '코스모스'
     };
 
-    // 정렬 상태를 저장하는 객체 초기화
-    var currentSort = {};
+    // 웹소켓 연결을 전역 변수로 이동
+    var ws;
 
     // 클릭 이전의 정렬 순서를 저장하는 객체 초기화
-    var originalOrder = {};
+    var currentSort = {};
 
-    // 각 컬럼의 클릭 이벤트에 대한 핸들러 등록
-    const headers = document.querySelectorAll(".sortable");
-    headers.forEach(function(header, index) {
-        header.addEventListener('click', function() {
-            sortTable(index);
-        });
-    });
+    // 전역 변수로 선택된 코인 코드를 추적합니다.
+    var selectedCoinCode = null;
 
     function connectWebSocket() {
-        const ws = new WebSocket('wss://api.upbit.com/websocket/v1');
+        ws = new WebSocket('wss://api.upbit.com/websocket/v1');
         ws.onopen = () => {
             const message = JSON.stringify([{ticket:"test"},{type:"ticker", codes: interestedMarkets}]);
             ws.send(message);
         };
 
+        // 웹소켓으로부터 메시지를 받을 때의 이벤트 핸들러를 설정합니다.
         ws.onmessage = event => {
             const reader = new FileReader();
             reader.onload = () => {
                 const data = JSON.parse(reader.result);
                 updateMarketList(data);
+                // 선택된 코인의 데이터가 도착하면 상세 테이블을 업데이트합니다.
+                if (selectedCoinCode === data.code) {
+                    updateDetailTable(data);
+                }
             };
             reader.readAsText(event.data);
         };
     }
 
+    connectWebSocket();
+
+    // 새로운 테이블 업데이트 함수
     function updateMarketList(data) {
         const marketList = document.getElementById('tradeList');
         let row = marketList.querySelector(`[data-code="${data.code}"]`);
         if (!row) {
             row = createNewRow(data.code);
+            marketList.appendChild(row);
         }
 
         // 현재가 셀을 찾고, 새로운 현재가와 이전 현재가를 비교
@@ -98,8 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-
-
     function applyFlashEffect(element, effectClass) {
         element.classList.add(effectClass);
         setTimeout(() => element.classList.remove(effectClass), 1000); // 1초 후 효과 제거
@@ -119,72 +121,109 @@ document.addEventListener('DOMContentLoaded', function () {
         return row;
     }
 
-    connectWebSocket();
-
-    function sortTable(column) {
-        const table = document.getElementById("tradeList");
-        const rows = Array.from(table.rows).slice(0); // 헤더 행은 제외
-        const direction = currentSort[column] === 'asc' ? 'desc' : 'asc'; // 정렬 방향 가져오기
-
-        // 정렬 기준에 따라 정렬하는 함수
-        let comparator;
-        if (column === 0) { // 종목명을 정렬하는 경우
-            comparator = function(a, b) {
-                const aValue = a.querySelector('.coin-name').textContent;
-                const bValue = b.querySelector('.coin-name').textContent;
-                return direction === 'asc' ? aValue.localeCompare(bValue, 'ko') : bValue.localeCompare(aValue, 'ko');
-            };
-        } else { // 숫자를 정렬하는 경우
-            comparator = function(a, b) {
-                const aValue = parseFloat(a.getElementsByTagName('TD')[column].textContent.replace(/[^0-9.-]+/g,""));
-                const bValue = parseFloat(b.getElementsByTagName('TD')[column].textContent.replace(/[^0-9.-]+/g,""));
-                return direction === 'asc' ? aValue - bValue : bValue - aValue;
-            };
-        }
-
-        // 정렬
-        rows.sort(comparator);
-
-        // 테이블에 정렬된 행들 다시 추가
-        rows.forEach(row => table.appendChild(row));
-
-        // 정렬 방향 업데이트
-        currentSort[column] = direction;
-
-        // 모든 컬럼의 상태 초기화 및 현재 컬럼 상태 업데이트
-        resetSortIcons();
-        headers.forEach((header, index) => {
-            if (index !== column) {
-                header.classList.remove("asc", "desc");
-            }
-        });
-        headers[column].classList.add(direction);
-    }
-
-    function resetSortIcons() {
-        headers.forEach(function(header) {
-            header.classList.remove("asc", "desc");
-        });
-    }
+    // 웹소켓으로부터 메시지를 받을 때의 이벤트 핸들러를 설정합니다.
+    ws.onmessage = event => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const data = JSON.parse(reader.result);
+            updateMarketList(data);
+            // 실시간 테이블의 각 행에 클릭 이벤트 리스너를 추가합니다.
+            const row = document.querySelector(`[data-code="${data.code}"]`);
+            row.removeEventListener('click', handleRealtimeRowClick); // 중복 이벤트 방지를 위해 기존 리스너를 제거합니다.
+            row.addEventListener('click', () => handleRealtimeRowClick(data)); // 새로운 데이터로 리스너를 추가합니다.
+        };
+        reader.readAsText(event.data);
+    };
 
     // 실시간 테이블 클릭 이벤트 핸들러
-    const realtimeRows = document.querySelectorAll('#tradeList tr');
-    realtimeRows.forEach(function(row) {
-        row.addEventListener('click', function() {
-            const coinCode = this.dataset.code;
-            const coinName = this.querySelector('.coin-name').textContent;
-            // 클릭된 행의 종목명과 종목코드를 새로운 테이블에 업데이트합니다.
-            updateRealtimeTable(coinName, coinCode);
-            // 클릭된 종목의 데이터를 출력합니다.
-            console.log("종목 한글명:", coinName);
-            console.log("종목 코드:", coinCode);
+    function handleRealtimeRowClick(data) {
+        // 클릭된 코인의 상세 정보를 새로운 테이블에 업데이트합니다.
+        updateDetailTable({
+            name: coinNames[data.code] || '알 수 없음',
+            code: data.code,
+            currentPrice: data.trade_price.toLocaleString(),
+            changeRate: (data.signed_change_rate * 100).toFixed(2),
+            volume24h: (data.acc_trade_volume_24h).toLocaleString(),
+            highPrice: data.high_price.toLocaleString(),
+            tradeAmount24h: (data.acc_trade_price_24h).toLocaleString(),
+            lowPrice: data.low_price.toLocaleString(),
+            tradeStrength: data.trade_strength || '-', // 'undefined' 대신에 실제 데이터가 들어가야 합니다.
+            prevClosingPrice: data.prev_closing_price.toLocaleString()
+        });
+    }
+
+    // 상세 테이블 업데이트 함수
+    function updateDetailTable(coinData) {
+        document.getElementById('coinName2').getElementsByTagName('h4')[0].textContent = coinData.name;
+        document.getElementById('coinCode2').textContent = coinData.code;
+        document.getElementById('currentPrice2').textContent = coinData.currentPrice;
+        document.getElementById('changeRate2').textContent = coinData.changeRate + '%';
+        document.getElementById('volume2').textContent = coinData.volume24h;
+        document.getElementById('highPrice2').textContent = coinData.highPrice;
+        document.getElementById('tradeAmount2').textContent = coinData.tradeAmount24h;
+        document.getElementById('lowPrice2').textContent = coinData.lowPrice;
+        document.getElementById('tradeStrength2').textContent = coinData.tradeStrength;
+        document.getElementById('prevClosingPrice2').textContent = coinData.prevClosingPrice;
+    }
+
+});
+
+
+// <============================== 매수/매도 창활성화 자바스크립트 ====================================>
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 매수/매도 버튼 이벤트
+    function toggleTradeWindows(event) {
+        var isBuyButton = event.target.id === 'buyButton';
+        document.getElementById('buyWindow').style.display = isBuyButton ? 'block' : 'none';
+        document.getElementById('sellWindow').style.display = isBuyButton ? 'none' : 'block';
+    }
+
+    // 지정가/시장가 라디오 버튼 이벤트
+    function toggleOrderType(event) {
+        var isLimitOrder = event.target.id === 'limitOrder';
+        var limitOrderContent = document.getElementById('limitOrderContent');
+        var marketOrderContent = document.getElementById('marketOrderContent');
+
+        // 지정가 및 시장가 내용을 토글합니다.
+        if (isLimitOrder) {
+            limitOrderContent.style.display = 'block';
+            marketOrderContent.style.display = 'none';
+        } else {
+            limitOrderContent.style.display = 'none';
+            marketOrderContent.style.display = 'block';
+        }
+    }
+
+    // 버튼 클릭 이벤트 리스너 등록
+    document.getElementById('buyButton').addEventListener('click', toggleTradeWindows);
+    document.getElementById('sellButton').addEventListener('click', toggleTradeWindows);
+
+    // 라디오 버튼 클릭 이벤트 리스너 등록
+    document.getElementById('limitOrder').addEventListener('click', toggleOrderType);
+    document.getElementById('marketOrder').addEventListener('click', toggleOrderType);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var sellOrderTypeRadios = document.querySelectorAll('input[name="sellOrderType"]');
+    sellOrderTypeRadios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            toggleSellOrderContent();
         });
     });
 
-    // 새로운 테이블 업데이트 함수
-    function updateRealtimeTable(coinName, coinCode) {
-        document.getElementById('coinName2').textContent = coinName || '-';
-        document.getElementById('coinCode2').textContent = coinCode || '-';
-        // 여기에 다른 필요한 값을 업데이트하는 코드를 추가합니다.
+    function toggleSellOrderContent() {
+        var limitSellOrderContent = document.getElementById('limitSellOrderContent');
+        var marketSellOrderContent = document.getElementById('marketSellOrderContent');
+        if (document.getElementById('limitSellOrder').checked) {
+            limitSellOrderContent.style.display = '';
+            marketSellOrderContent.style.display = 'none';
+        } else {
+            limitSellOrderContent.style.display = 'none';
+            marketSellOrderContent.style.display = '';
+        }
     }
+
+    // 초기 상태 설정
+    toggleSellOrderContent();
 });
