@@ -160,4 +160,10 @@ thead th {
     margin-right: 0;
 }
 
-/* 숨겨진 라디오 버튼과 라벨을 스타일링 하기 위한 추가 CSS가 필요할 수 있습니다. */
+
+.DetailTrade-table > td{
+    font-size: 0.75rem;
+    padding: 1%;
+    width: 100%;
+
+}

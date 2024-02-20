@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("종목 코드:", data.code);
             console.log("현재가:", newCurrentPrice.toLocaleString());
             console.log("변동률:", changeRateValue + "%");
-            console.log("거래량 (24h):", accTradePrice24hValue.toLocaleString());
+            console.log("거래량 (24h):", data.acc_trade_volume_24h.toLocaleString());
             console.log("고가 (당일):", data.high_price.toLocaleString());
             console.log("거래금액 (24h):", data.acc_trade_price_24h.toLocaleString());
             console.log("저가 (당일):", data.low_price.toLocaleString());
@@ -135,22 +135,26 @@ document.addEventListener('DOMContentLoaded', function () {
         reader.readAsText(event.data);
     };
 
-    // 실시간 테이블 클릭 이벤트 핸들러
-    function handleRealtimeRowClick(data) {
-        // 클릭된 코인의 상세 정보를 새로운 테이블에 업데이트합니다.
-        updateDetailTable({
-            name: coinNames[data.code] || '알 수 없음',
-            code: data.code,
-            currentPrice: data.trade_price.toLocaleString(),
-            changeRate: (data.signed_change_rate * 100).toFixed(2),
-            volume24h: (data.acc_trade_volume_24h).toLocaleString(),
-            highPrice: data.high_price.toLocaleString(),
-            tradeAmount24h: (data.acc_trade_price_24h).toLocaleString(),
-            lowPrice: data.low_price.toLocaleString(),
-            tradeStrength: data.trade_strength || '-', // 'undefined' 대신에 실제 데이터가 들어가야 합니다.
-            prevClosingPrice: data.prev_closing_price.toLocaleString()
-        });
-    }
+   // 실시간 테이블 클릭 이벤트 핸들러
+   function handleRealtimeRowClick(data) {
+       // 클릭된 코인의 상세 정보를 새로운 테이블에 업데이트합니다.
+       updateDetailTable({
+           name: coinNames[data.code] || '알 수 없음',
+           code: data.code,
+           currentPrice: data.trade_price.toLocaleString(),
+           changeRate: (data.signed_change_rate * 100).toFixed(2),
+           volume24h: (data.acc_trade_volume_24h),
+           highPrice: data.high_price.toLocaleString(),
+           tradeAmount24h: (data.acc_trade_price_24h),
+           lowPrice: data.low_price.toLocaleString(),
+           tradeStrength: data.trade_strength || '-', // 'undefined' 대신에 실제 데이터가 들어가야 합니다.
+           prevClosingPrice: data.prev_closing_price.toLocaleString()
+       });
+
+       // 주문 가능 금액 input 태그에 현재가 설정
+       document.getElementById('orderPrice').value = data.trade_price;
+       document.querySelector('input[type="number"][value="[[${coinData.currentPrice}]]"]').value = data.trade_price;
+   }
 
     // 상세 테이블 업데이트 함수
     function updateDetailTable(coinData) {
@@ -158,9 +162,19 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('coinCode2').textContent = coinData.code;
         document.getElementById('currentPrice2').textContent = coinData.currentPrice;
         document.getElementById('changeRate2').textContent = coinData.changeRate + '%';
-        document.getElementById('volume2').textContent = coinData.volume24h;
         document.getElementById('highPrice2').textContent = coinData.highPrice;
-        document.getElementById('tradeAmount2').textContent = coinData.tradeAmount24h;
+
+        /* 거래량 설정 */
+        const accTradePrice24hValue2 = (coinData.volume24h/1000000).toFixed(3);
+        document.getElementById('volume2').textContent = `${accTradePrice24hValue2.toLocaleString()} 백만`+ coinData.code.split('-')[1];
+
+        /*거래대금(24) 설정*/
+        const accTradePrice24h2 = Math.floor(coinData.tradeAmount24h/1000000);
+        document.getElementById('tradeAmount2').textContent = `${accTradePrice24h2.toLocaleString()} 백만`;
+
+
+
+
         document.getElementById('lowPrice2').textContent = coinData.lowPrice;
         document.getElementById('tradeStrength2').textContent = coinData.tradeStrength;
         document.getElementById('prevClosingPrice2').textContent = coinData.prevClosingPrice;

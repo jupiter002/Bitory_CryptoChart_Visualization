@@ -9,68 +9,66 @@
 <body>
 <th:block layout:fragment="content">
     <div class="main-banner" id="top">
-        <div id="main" class="container" style="margin-top:-2%">
+        <div id="main" class="container">
             <div class="container">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-6" style="margin-left:-2%">
+                        <div class="row mb-5">
+                            <h1 style="color:white; text-align:center">[[${userID}]]([[${userName}]])님의 MyPage</h1>
+                        </div>
                         <div class="row">
                             <div class="container-table p-3">
-                                <h2 style="text-align:center;">[[${userID}]]([[${userName}]])님 </h2>
-                            </div>
-                            <br>
-                            <div class="container-table mt-3 p-5"  style="height: 500px">
-                                <h2 style="text-align:center;">[[${userName}]]의 Assets(암호화폐 자산) </h2>
-                                <table>
+                                <h3 style="text-align:center">User Assets</h3>
+                                <table style="min-height: 500px">
                                     <thead>
-                                        <tr>
-                                            <th>종목명</th>
-                                            <th>금액</th>
-                                        </tr>
+                                    <tr>
+                                        <th>종목명</th>
+                                        <th>금액</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>종목명 값</td>
-                                            <td>금액 값</td>
-                                        </tr>
+                                    <tr>
+                                        <td>종목명 값</td>
+                                        <td>금액 값</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="row ms-3 ">
-                            <div class="container-table mb-3 p-5"  style="height: 500px">
-                                <h2 style="text-align:center;">Trade History</h2>
-                                <table>
+                    <div class="col-6" style="margin-right:1%">
+                        <div class="row">
+                            <button type="button" class="btn btn-danger p-3 mt-5" onclick="window.location.href='/virtualInvest';">[[${userID}]]([[${userName}]])님의 투자보고서 보러가기!</button>
+                        </div>
+                        <div class="row">
+                            <div class="container-table p-3 ms-1" style="min-height: 300px">
+                                <table style="min-height: 520px">
                                     <thead>
-                                        <tr>
-                                            <th>종목명</th>
-                                            <th>거래량</th>
-                                            <th>매수액</th>
-                                            <th>매도액</th>
-                                        </tr>
+                                    <tr>
+                                        <th>종목명</th>
+                                        <th>거래량</th>
+                                        <th>매수</th>
+                                        <th>매도</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>종목명 값</td>
-                                            <td>거래량 값</td>
-                                            <td>매수액 값</td>
-                                            <td>매도액 값</td>
-                                        </tr>
+                                    <tr>
+                                        <th>종목명 값</th>
+                                        <th>거래량 값</th>
+                                        <th>매수 값</th>
+                                        <th>매도 값</th>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <br>
-                            <br>
-                            <button type="button" class="btn btn-danger p-3" style="width:100%; font-size:20px" onclick="window.location.href='/virtualInvest';">
-                                [[${userName}]]님의 투자보고서 보러가기!
-                            </button>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </th:block>
 </body>
 </html>

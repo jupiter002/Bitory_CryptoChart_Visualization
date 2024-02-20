@@ -2,39 +2,101 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultra.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/template}">
-<head></head>
+<head>
+    <meta charset="utf-8">
+    <!-- 여기에 CSS 및 JavaScript 파일을 포함할 수 있습니다 -->
+</head>
 <body>
 <th:block layout:fragment="content">
-    <meta charset="utf-8">
     <div class="main-banner" id="top">
         <div id="main" class="container">
-            <!-- =========================   실시간 가상화폐 주가 테이블  ==============================-->
-            <div class="services section" id="services">
-                <div class="container">
-                    <div class="row">
-                        <div class="container" id="marketTable">
-                            <div class="container-table">
-                                <div id="app">
-                                    <h6 class="marketTableName" style="color: rgb(221, 221, 221);">실시간 메이저 가상화폐 시세</h6>
-                                    <h1 class="marketTableName">Major Cryptocurrency</h1>
-                                    <br><br><br><br>
-                                    <table class="table table-hover">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6" style="margin-left:-2%">
+                        <!-- 기간별 -->
+                        <div class="row">
+                            <div class="container-table p-3">
+                                <h3 style="text-align:center">User Assets</h3>
+                                <table style="min-height: 500px">
+                                    <thead>
+                                    <tr>
+                                        <th>종목명</th>
+                                        <th>금액</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>종목명 값</td>
+                                        <td>금액 값</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="container-table p-3">
+                                <h3 style="text-align:center">User Assets</h3>
+                                <table style="min-height: 500px">
+                                    <thead>
+                                    <tr>
+                                        <th>종목명</th>
+                                        <th>금액</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>종목명 값</td>
+                                        <td>금액 값</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6" style="margin-right:1%">
+                        <div class="row">
+                            <div class="container-table p-3">
+                                <h3 style="text-align:center">User Assets</h3>
+                                <div style="width: 252px;">
+                                    <h2>실시간 시장 동향</h2>
+                                    <table id="realtimeMarketTable">
                                         <thead>
                                         <tr>
-                                            <th class="no" style="width:5%;">No.</th>
-                                            <th class="coin-name" style="width:15%;">종목명</th>
-                                            <th class="current-price" style="width:15%;">현재가</th>
-                                            <th class="comparison" style="width:15%;">대비</th>
-                                            <th class="opening" style="width:10%;">시가</th>
-                                            <th class="high" style="width:10%;">고가</th>
-                                            <th class="low" style="width:10%;">저가</th>
-                                            <th style="width:10%;">등락률</th>
+                                            <th>순위</th>
+                                            <th>이름/코드</th>
+                                            <th>변동률</th>
+                                            <th>현재가</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="marketList">
+                                        <tbody>
+                                        <!-- 여기에 웹소켓 데이터가 삽입됩니다 -->
                                         </tbody>
                                     </table>
                                 </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="container-table p-3 ms-1" style="min-height: 300px">
+                                <table style="min-height: 520px">
+                                    <thead>
+                                    <tr>
+                                        <th>종목명</th>
+                                        <th>거래량</th>
+                                        <th>매수</th>
+                                        <th>매도</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>종목명 값</th>
+                                        <th>거래량 값</th>
+                                        <th>매수 값</th>
+                                        <th>매도 값</th>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -42,8 +104,7 @@
             </div>
         </div>
     </div>
+
 </th:block>
-
-
 </body>
 </html>
