@@ -2,7 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultra.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/template}">
-<head></head>
+<head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+</head>
 <body>
 <!-- 가상화폐 예측분석 그래프 css-->
 <th:block layout:fragment="content">
@@ -13,15 +16,24 @@
             <br><br>
 <!--            <h1 class="marketTableName">Predict Graph</h1>-->
             <div id="bo">
+
                 <!-- ==================== Canvas 예측 그래프.========================= -->
                 <div class="wrapper">
                     <canvas id="stockChart" width="800" height="400"></canvas>
-
-                    <select id="ticker">									<!--  -->
+                </div>
+                <div class="d-flex justify-content-between">
+                    <select id="ticker1" style="margin: 5% 0 0 20%; padding: 10px; border-radius: 10px;">									<!--  -->
                         <option name="BTC" value="BTC" selected="selected">Bitcoin</option>
                         <option name="ETH" value="ETH">Ethereum</option>
                         <option name="ADA" value="ADA">Cardano</option>
                         <option name="XRP" value="XRP">XRP</option>
+                    </select>
+                    <select id="ticker2" style="margin: 5% 20% 0 0; padding: 10px; border-radius: 10px;">									<!--  -->
+                        <option name="BTC" value="BTC" selected="selected">Bitcoin</option>
+                        <option name="ETH" value="ETH">Ethereum</option>
+                        <option name="ADA" value="ADA">Cardano</option>
+                        <option name="XRP" value="XRP">XRP</option>
+                        <option name="doge" value="doge">Doge</option>
                     </select>
                 </div>
             </div>

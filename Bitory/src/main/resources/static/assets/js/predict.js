@@ -1,19 +1,28 @@
-let tickerSelect = document.getElementById("ticker")
-						
-document.addEventListener("DOMContentLoaded", async () => {		// select 태그의 값이 바뀌는 것을 감지하기 위해 
+let tickerSelect1 = document.getElementById("ticker1")
+let tickerSelect2 = document.getElementById("ticker2")
+
+
+
+document.addEventListener("DOMContentLoaded", async () => {		// select 태그의 값이 바뀌는 것을 감지하기 위해
 	await handleFetchDataAndPrepareChart();						// 차트를 그려주는 함수 호출
 
-    $("#ticker").on("change", async () => {						// select 태그의 값이 바뀌는 것을 감지
-        await handleFetchDataAndPrepareChart();					// 바뀐 차트를 다시 그리기 위해 함수 재호출
+    $("#ticker1").on("change", async () => {			        // select 태그의 값이 바뀌는 것을 감지
+    await handleFetchDataAndPrepareChart();					    // 바뀐 차트를 다시 그리기 위해 함수 재호출
+    });
+
+    $("#ticker2").on("change", async () => {			        // select 태그의 값이 바뀌는 것을 감지
+    await handleFetchDataAndPrepareChart();					    // 바뀐 차트를 다시 그리기 위해 함수 재호출
     });
 });
 
 
 async function fetchData () {									// 예측 가격과 일시 데이터를 요청 및 전달받는 함수
-	let ticker = tickerSelect.value
+    let ticker1 = tickerSelect1.value
+    let ticker2 = tickerSelect2.value
+
 	try {
 	    // fetch 함수를 사용하여 지정된 URL로 POST 요청을 보냅니다.
-	    const response = await fetch(`http://127.0.0.1:8000/responsePrice/${ticker}`, {
+	    const response = await fetch(`http://127.0.0.1:8000/responsePrice/${ticker1}/${ticker2}`, {
 	        method: 'GET', 
 	        headers: {
 	            'Content-Type': 'application/json',
@@ -28,27 +37,31 @@ async function fetchData () {									// 예측 가격과 일시 데이터를 �
 	    console.error("Error fetching data:", error);
 	    throw error;
 	}};
-	
+
 
 
 
 async function handleFetchDataAndPrepareChart() {
+        let ticker1 = tickerSelect1.value
+        let ticker2 = tickerSelect2.value
+
     try {
-		
         const result = await fetchData();
 		console.log(result);
         // 무작위 주가 데이터 생성
         const days = result['days'];
 		//console.log(fetchData());
         // 예측한 주가 데이터 생성 (여기에서는 실제 주가와 동일한 값으로 설정)
-        const predictedPrices = result['pred_price'];
-        const realPrices = result['real_price'];
+        const predictedPrices1 = result['pred_price1'];
+        const realPrices1 = result['real_price1'];
+        const predictedPrices2 = result['pred_price2'];
+        const realPrices2 = result['real_price2'];
         // 차트를 그릴 Canvas 엘리먼트 선택
         const ctx = document.getElementById('stockChart').getContext('2d');
         
 		let chartStatus = Chart.getChart('stockChart');
 		
-		if (chartStatus !== undefined) {
+		if (chartStatus !== undefined) {                                    // 이미 차트가 있을 시 삭제후 재생성
 		  chartStatus.destroy();
 			}
         // Chart.js를 사용하여 선 그래프를 그립니다.
@@ -58,19 +71,33 @@ async function handleFetchDataAndPrepareChart() {
                 labels: days,
                 datasets: [
                 	{
-                        label: '실제 주가',
-                        data: realPrices,
+                        label: `${ticker1} 실제 주가`,
+                        data: realPrices1,
                         borderColor: 'orange',
                         borderDash: [5, 5],  // 점선으로 예측 부분을 나타냅니다.
                         fill: false
                     },
                     {
-                        label: '예측 주가',
-                        data: predictedPrices,
+                        label: `${ticker1} 예측 주가`,
+                        data: predictedPrices1,
                         borderColor: 'green',
                         borderDash: [5, 5],  // 점선으로 예측 부분을 나타냅니다.
                         fill: false
                     }
+//                    {
+//                        label: `${ticker2} 실제 주가`,
+//                        data: realPrices2,
+//                        borderColor: 'orange',
+//                        borderDash: [5, 5],  // 점선으로 예측 부분을 나타냅니다.
+//                        fill: false
+//                    },
+//                    {
+//                        label: `${ticker2} 예측 주가`,
+//                        data: predictedPrices2,
+//                        borderColor: 'green',
+//                        borderDash: [5, 5],  // 점선으로 예측 부분을 나타냅니다.
+//                        fill: false
+//                    }
                 ]
             },
             options: {
