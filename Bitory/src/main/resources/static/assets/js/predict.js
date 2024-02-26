@@ -25,8 +25,25 @@ async function fetchData () {									// 예측 가격과 일시 데이터를 �
 	    });
 	    // 응답을 기다리고 JSON으로 파싱합니다.
 	    const result = await response.json();
-	    
-	    return result		// JSON 형식으로 바꾼 데이터를 반환 
+
+	    function convertDates(obj) {
+            if (obj.days) {
+                const newDays = {};
+                for (const key in obj.days) {
+                    if (obj.days.hasOwnProperty(key)) {
+                        newDays[key] = new Date(obj.days[key]);
+                    }
+                }
+                obj.days = newDays;
+            }
+        }
+
+	    result.forEach(array => {
+            // 배열 내의 각 객체에 대해 "convertDates" 함수 호출
+            array.forEach(obj => convertDates(obj));
+        });
+
+	    return result		// JSON 형식으로 바꾼 데이터를 반환
 
 	} catch (error) {
 	    console.error("Error fetching data:", error);
@@ -39,8 +56,9 @@ async function handleFetchDataAndPrepareChart() {
         let ticker2 = tickerSelect2.value
 
     try {
-       const result = await fetchData();
-       console.log(result[3])
+       const arrays = await fetchData();
+       console.log(arrays[0][0]);
+       console.log(arrays[0]);
 
 //       result.forEach((dataset) => {
 //         console.log(dataset);
@@ -61,7 +79,7 @@ async function handleFetchDataAndPrepareChart() {
 
        // Set dimensions and margins for the chart
        const margin = { top: 70, right: 30, bottom: 40, left: 80 };
-       const width = 1200 - margin.left - margin.right;
+       const width = 1600 - margin.left - margin.right;
        const height = 500 - margin.top - margin.bottom;
 
        // Set up the x and y scales
@@ -94,16 +112,29 @@ async function handleFetchDataAndPrepareChart() {
 
        // Define the x and y domains
        // Assuming result is an array of objects with 'days' and 'value' properties
-         x.domain(d3.extent(result, d => d.days)); // Assuming days represent dates
-         y.domain([0, d3.max(result, d => d.value)]); // Adjust according to your data;
-         console.log(x)
+        function convertDaysToArray(obj) {
+            return Object.values(obj.days).map(date => new Date(date));
+        }
+         const daysArray = convertDaysToArray(arrays[0][0]);
+         x.domain(d3.extent(daysArray));
+
+         console.log(d3.extent(daysArray));
+
+        function extractValues(obj) {
+            return Object.values(obj.value);
+        }
+
+        // 첫 번째 배열의 "value" 속성에서 날짜에 해당하는 값들을 추출하여 배열로 변환
+        const valuesArray = extractValues(arrays[0][0]);
+
+         y.domain([0, d3.max(valuesArray)]); // Adjust according to your data;
 
        // Add the x-axis
        svg.append("g")
          .attr("transform", `translate(0,${height})`)
          .call(d3.axisBottom(x)
-           .ticks(d3.timeMonth.every(1))
-           .tickFormat(d3.timeFormat("%m %y")));
+           .ticks(d3.timeHour.every(1))
+           .tickFormat(d3.timeFormat("%d %m")));
 
        // Add the y-axis
        svg.append("g")
@@ -114,22 +145,15 @@ async function handleFetchDataAndPrepareChart() {
          .x(d => x(d.days))
          .y(d => y(d.value));
 
-      result.forEach((dataset) => {
+      arrays.forEach((dataset) => {
         // console.log(dataset)
         svg.append('path')
-           .datum(dataset)
+           .datum(dataset[0])
            .attr('fill', 'none')
            .attr('stroke', 'steelblue')
            .attr('stroke-width', 2)
            .attr('d', line);
       });
-
-//        svg.append('path')
-//           .datum(dataset1)
-//           .attr('fill', 'none')
-//           .attr('stroke', 'steelblue')
-//           .attr('stroke-width', 2)
-//           .attr('d', line);
 
         }catch (error) {
         console.error("Error handling data:", error);
