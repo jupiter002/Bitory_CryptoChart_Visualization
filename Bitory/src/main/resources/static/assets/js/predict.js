@@ -58,7 +58,7 @@ async function handleFetchDataAndPrepareChart() {
 
     try {
        const arrays = await fetchData();        // fetchData함수로 가상화폐 가격과 예측가격을 가져옴
-       console.log(arrays);
+       console.log(arrays[0][0]);
        //console.log(arrays[0]);
 
 //       result.forEach((dataset) => {
@@ -96,24 +96,47 @@ async function handleFetchDataAndPrepareChart() {
 
         // x, y축의 범위를 지정
         // 객체의 날짜 값만 추출해서 Date타입으로 변환
-        function convertDaysToArray(obj) {
-            const dates = Object.values(obj.days).map(date => new Date(date));
-            // console.log(dates);
-            return dates
+//        function convertDaysToArray(obj) {
+//            const dates = Object.values(obj.days).map(date => new Date(date));
+//            console.log(dates);
+//            return dates
+//        }
+
+        // 날짜 문자열을 Date 객체로 변환하는 함수
+        function parseDateString(dateString) {
+            return new Date(dateString);
         }
+
+        // 모든 요소의 "days" 값을 Date 객체로 변환
+        const transformedDate = arrays[0][0].map(item => {
+            return {
+                ...item,
+                days: parseDateString(item.days)
+            };
+        });
+
+        const transformedValue = arrays[0][0].map(item => {
+            return {
+                ...item,
+                value: item.value
+            };
+        });
+
         // 첫 번째 배열의 "days" 속성에서 날짜에 해당하는 값들을 추출하여 배열로 변환
          //const daysArray = convertDaysToArray(arrays[0]);
-         x.domain(d3.extent(arrays[0][0], d => d.days));
+         console.log(transformedDate, d => d.days);
+         console.log(transformedValue, d => d.value);
+         x.domain(d3.extent(transformedDate, d => d.days));
 
         //  객체의 가격 값만 추출해서 반환
-        function extractValues(obj) {
-            const values = Object.values(obj.value);
-            // console.log(values);
-            return values
-        }
+//        function extractValues(obj) {
+//            const values = Object.values(obj.value);
+//            // console.log(values);
+//            return values
+//        }
         // 첫 번째 배열의 "value" 속성에서 날짜에 해당하는 값들을 추출하여 배열로 변환
         //const valuesArray = extractValues(arrays[0]);
-        y.domain([0, d3.max(arrays[0][0], d => d.value)]); // Adjust according to your data;
+        y.domain([0, d3.max(transformedValue, d => d.value)]); // Adjust according to your data;
 
        // x축을 추가
        svg.append("g")
@@ -134,8 +157,9 @@ async function handleFetchDataAndPrepareChart() {
 
         const line = d3.line()
        //.x(d => convertDaysToArray(d))
-       .x(d => Object.values(d.days).map(date => new Date(date))
-       .y(d => Object.values(d.value)))
+       .defined(d => !isNaN(d.value))
+       .x(d => x(d.days))
+       .y(d => y(d.value));
 
       // 라인차트 그리기
 //      arrays.forEach((dataset, index) => {
@@ -149,11 +173,11 @@ async function handleFetchDataAndPrepareChart() {
 //      });
 
       svg.append('path')
-         .data(arrays[0][0])
+         //.data(arrays[0][0])
          .attr('fill', 'none')
          .attr('stroke', 'steelblue')
          .attr('stroke-width', 2)
-         .attr('d', line());
+         .attr('d', line(arrays[0][0]));
 
         }catch (error) {
         console.error("Error handling data:", error);
