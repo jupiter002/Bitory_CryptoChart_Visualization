@@ -230,21 +230,32 @@ var max = d3.max(data3, function (d) {
     return d3.max(d);
 });
 d3.max(data3.map(d => d[0]))
-// console.log(d3.max(data3.map(d => d[2])))
+console.log(d3.max(data3.map(d => d[2])))
 
 // var dataArray = [Object.values(arrays[0][0].days),Object.values(arrays[0][0].value)]
 
-
-var xValue = d3.scaleTime().domain([new Date(d3.min(arrays[0][0].map(d => d.days))), new Date(d3.max(arrays[0][0].map(d => d.days)))]).range([0, width-50])
+// x축의 범위를 지정
+var xValue = d3.scaleTime()
+.domain([new Date(d3.min(arrays[0][0].map(d => d.days))), new Date(d3.max(arrays[0][0].map(d => d.days)))])
+.range([0, width+40]);
 // var xScale = d3.scaleLinear().domain([0, d3.max(data)]).range([0, width-50])
-var xScale = d3.scaleTime().domain([new Date(d3.min(arrays[0][0].map(d => d.days))), new Date(d3.max(arrays[0][0].map(d => d.days)))]).range([0, width-50])
+
+var xScale = d3.scaleTime()
+.domain([new Date(d3.min(arrays[0][0].map(d => d.days))), new Date(d3.max(arrays[0][0].map(d => d.days)))])
+.range([0, width+40]);
+
+// x축에 표현할 형식을 지정
 var xAxis = d3.axisBottom().scale(xScale).tickFormat(d3.timeFormat('%m-%d-h%H'));
 // var xAxis = d3.axisBottom().tickFormat(d3.timeFormat('%d-%H')).scale(xScale).ticks(20, "s");
 
+// y축의 범위를 지정
 var yValue = d3.scaleLinear().domain([d3.max(arrays[0][0].map(d => d.value)), d3.min(arrays[0][0].map(d => d.value))]).range([0, height-50])
 var yScale = d3.scaleLinear().domain([d3.max(arrays[0][0].map(d => d.value)), d3.min(arrays[0][0].map(d => d.value))]).range([0, height-50])
 var yAxis = d3.axisLeft().scale(yScale);
 
+console.log([new Date(d3.min(arrays[0][0].map(d => d.days))), new Date(d3.max(arrays[0][0].map(d => d.days)))]);
+
+// 선을 그릴 line함수
 var line = d3.line()
     .x(function(d,i){
 //        console.log('days', d)
@@ -263,26 +274,26 @@ var line = d3.line()
         // console.log('value',yValue(d[1]))
         return yValue(d.value);
     });
-
+// 그래프를 그릴 요소를 지정 및 크기, 배경색을 지정
 var svg2 = d3.select("#stockChart")
     .append("svg")
         .attr("width", width)
         .attr("height", height)
         .style("background-color", "yellow");
-
+// x축의 위치를 지정
 var xaxis = svg2.append("g")
     .attr("transform", "translate(80, 570)")
-    .call(xAxis)
-
+    .call(xAxis);
+// y축의 위치를 지정
 var yaxis = svg2.append("g")
     .attr("transform", "translate(80, 20)")
-    .call(yAxis)
+    .call(yAxis);
 
 var path = svg2.append('g')
     .attr('clip-path', 'url(#clip)')
     .attr("transform", "translate(80, 20)")
     .append('path')
-        // .data([arrays[1]["value"]])
+        // 선을 그릴 데이터와 색깔, 두께를 지정
         .data([arrays[0][0]])
         .attr('class', 'line')
         .attr("fill", "none")
@@ -296,6 +307,8 @@ var path = svg2.append('g')
 // dataArray1.shift();
 // console.log(dataArray1);
 // console.log(d3.min(dataArray1.map(d => d[0])))
+
+//
 tick(0);
 
      function tick(i) {
@@ -307,21 +320,22 @@ tick(0);
         path.attr('d', line)
             .attr('transform', null)
             .transition()
-                .duration(500)
-                .ease(d3.easeLinear)
+                .duration(1000)
+                .delay(50)
+                .ease(d3.easeCubic)
                 // .attr('transform', 'translate(' + xScale(-1) + ',0)')
                 .attr('transform', 'translate(-185 ,0)')
-                .on('end', ()=>{ tick(i+1)});
+                .on('cancel ', ()=>{tick(i+1)});
 
 
-        xValue.domain([new Date(d3.min(dataArray1.map(d => d.days))), new Date(d3.max(dataArray1.map(d => d.days)))]).range([0, width-50]);
-        xScale.domain([new Date(d3.min(dataArray1.map(d => d.days))), new Date(d3.max(dataArray1.map(d => d.days)))]).range([0, width-50]);
+        xValue.domain([new Date(d3.min(dataArray1.map(d => d.days))), new Date(d3.max(dataArray1.map(d => d.days)))]);
+        xScale.domain([new Date(d3.min(dataArray1.map(d => d.days))), new Date(d3.max(dataArray1.map(d => d.days)))]);
         // xaxis.call(xAxis);
         xaxis
         // .attr('transform', "translate(80, 570)")
             .transition()
-                .duration(500)
-                .ease(d3.easeLinear)
+                .duration(1000)
+                .ease(d3.easeCubic)
                 // .attr('transform', 'translate(-107 ,570)')
                 .call(xAxis)
 
@@ -332,8 +346,8 @@ tick(0);
         yaxis
         // .attr('transform', "translate(80, 570)")
             .transition()
-                .duration(500)
-                .ease(d3.easeLinear)
+                .duration(1000)
+                .ease(d3.easeCubic)
                 // .attr('transform', 'translate(-107 ,570)')
                 .call(yAxis)
 
